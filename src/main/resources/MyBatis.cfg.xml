@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<properties resource="jdbc.properties"/>
+	<!-- 配置MyBatis会话工厂(或上下文环境) -->
+	<environments default="development">
+		<!-- 配置环境, 连接指定的数据库. development: 可配置, 可扩展 -->
+		<environment id="development">
+			<!-- 指定事务管理由JDBC负责, MANAGED由容器负责管理事务,如JTA或EJB或Spring -->
+			<transactionManager type="JDBC" />
+			<!-- POOLED: 使用JDBC数据连接池管理 UNPOOLED: 非连接池管理(每次都要创建连接对象) JNDI: 由容器负责管理连接池, 
+				如Spring或应用服务器(Tomcat)等 JNDI: Java Naming and Directory Interface,Java命名和目录接口 -->
+			<dataSource type="POOLED">
+				<property name="driver" value="${jdbc.driver}" />
+				<property name="url" value="${jdbc.url}" />
+				<property name="username" value="${jdbc.username}" />
+				<property name="password" value="${jdbc.password}" />
+			</dataSource>
+		</environment>
+	</environments>
+	<!-- 配置映射信息. url与resource两种方式 -->
+	<mappers>
+		<!-- <mapper url="file:///D:/workspace/mybatis/src/main/java/com/jnmd/mybatis/mapper/AdminMapper 
+			.xml"/> -->
+			
+		<mapper resource="com/jnmd/mybatis/mapper/BookMappers.xml" />
+	</mappers>
+
+</configuration>

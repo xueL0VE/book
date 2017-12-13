@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!-- SQL映射文件, 如果不加namespace属性,则会造成错误解析映射文件,报空指针异常 -->
+<mapper namespace="test">
+	<!-- 主要标签: select, insert, delete, update 分别对应不同的SQL操作语句 -->
+	<!-- id: 必要属性, 为SQL语句命名, 必须唯一 resultType: 指定返回的结果集对应的Java类型 封装方式: 检索查询结果的字段名, 
+		将字段名作为property, 调用类型中的set方法, 将查询结果字段数据通过Set方法注入至对象相应的字段中 -->
+	<select id="getBook" resultType="com.jnmd.mybatis.domain.Book">
+		select * from league ;
+	</select>
+	<select id="getBookId" resultType="com.jnmd.mybatis.domain.Book">
+		select * from league where lid = #{id lid};
+	</select>
+	<select id="getBooks" resultType="com.jnmd.mybatis.domain.Book">
+		select * from league where lid = #{id} and lyear = #{year};
+	</select>
+	<select id="leagueMap" resultType="com.jnmd.mybatis.domain.Book">
+		select * from league where lid = #{id} and lyear = #{year};
+	</select>
+	<select id="getById" resultType="com.jnmd.mybatis.domain.Book">
+		select * from league where lid = #{id};
+	</select>
+	<insert id="insertUser">
+		insert into league(lyear,season,title) values(#{year},#{season},#{title})
+	</insert>
+	<insert id="insertBook">
+		<selectKey keyColumn="id" keyProperty="id" resultType="int" order="AFTER">
+			select @@identity as id
+		</selectKey>
+		insert into league (lyear,season,title) values(#{year},#{season},#{title})
+	</insert>
+	<update id="updatebook">
+		update league set lyear = #{year} , season = #{season} , title = #{title}
+		where lid = #{id}
+	</update>
+	<delete id="deletebook">
+		delete from league where lid = #{id}
+	</delete>
+</mapper>
